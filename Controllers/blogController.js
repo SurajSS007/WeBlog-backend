@@ -21,6 +21,7 @@ exports.addBlog = async(req,res) => {
                 const user =  await User.findById(req.user);
                 const b1 =  await Blog.findOne({ title:title});
                 user.blogs.push(b1._id);
+                user.save()
                 res.json({blog,user})
             }
             else {
