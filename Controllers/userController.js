@@ -53,7 +53,6 @@ exports.getPosts =  async (req, res) => {
 }
 
 
-
 exports.Login = async (req, res) => {
 
     try {
