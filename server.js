@@ -1,6 +1,7 @@
 require('./Models/db')
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const userRoute = require('./Routes/userRoute')
 const blogRoute = require('./Routes/blogRoute')
 const { verifyAccessToken } = require('./Middlewares/jwt_helper')
@@ -9,7 +10,7 @@ const { verifyAccessToken } = require('./Middlewares/jwt_helper')
 const bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(bodyparser.json());
-
+app.use(cors());
 
 app.use('/user',userRoute)
 app.use('/blog',blogRoute)

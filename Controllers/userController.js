@@ -67,6 +67,7 @@ exports.Login = async (req, res) => {
         const user = await User.findOne({
             uname: un
         })
+        console.log(user);
   
         if (user == null) {
             return res.status(400).send('cannot find user')
