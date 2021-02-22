@@ -14,14 +14,18 @@ exports.addUser =  async(req,res) =>{
     try {
         const { uname,email,password,contactno} = req.body ;
     
+        const salt = await bcrypt.genSalt(10)
+        const hashPassword = await bcrypt.hash(password, salt)
+
         const user = new User();
         user.uname = uname
         user.email = email
-        user.password = password
+        user.password = hashPassword
         user.contactno = contactno
         user.save((err, doc) => {
-            if (!err)
+            if (!err){
                 res.json(user)
+            }
             else {
                     console.log(err);
             }
@@ -46,6 +50,7 @@ exports.getPosts =  async (req, res) => {
         // const id = req.params.id
         // console.log(id);
         const user = await User.findById(req.user).populate('blogs')
+        console.log(user);
         res.json(user);
     } catch (err) {
         console.log(error);

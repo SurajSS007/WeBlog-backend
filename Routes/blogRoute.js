@@ -4,7 +4,7 @@ const blogController = require('../Controllers/blogController')
 const { verifyAccessToken } = require('../Middlewares/jwt_helper')
 
 router.route('/')
-.get(blogController.getBlog)
+.get(blogController.getBlog)    
 .post(verifyAccessToken,blogController.addBlog)
 
 module.exports = router;

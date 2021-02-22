@@ -25,15 +25,15 @@ const userSchema = new mongoose.Schema({
       }
     ]
 })
-userSchema.pre('save', async function (next) {
-    try {
-      const salt = await bcrypt.genSalt(10)
-      const hashPassword = await bcrypt.hash(this.password, salt)
-      this.password = hashPassword
-      next()
-    } catch (err) {
-      console.log(err)
-    }
-  })
+// userSchema.pre('save', async function (next) {
+//     try {
+//       const salt = await bcrypt.genSalt(10)
+//       const hashPassword = await bcrypt.hash(this.password, salt)
+//       this.password = hashPassword
+//       next()
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   })
   
 module.exports = mongoose.model('User',userSchema);
