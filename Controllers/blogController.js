@@ -15,7 +15,7 @@ exports.addBlog = async(req,res) => {
         blog.likes = likes
         blog.user = req.user
 
-
+        res.json(blog)
         blog.save(async(err, doc) => {
             if (!err){
                 const user =  await User.findById(req.user);
