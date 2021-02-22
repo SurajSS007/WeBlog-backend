@@ -14,7 +14,7 @@ app.use(bodyparser.json());
 app.use('/user',userRoute)
 app.use('/blog',blogRoute)
 app.use('/hello',verifyAccessToken,(req,res) => {
-    res.send(req.userId);
+    res.send(req.user);
 })
 const PORT=process.env.PORT || 5000 ;
 app.listen(PORT,() => console.log(`Listening to PORT ${PORT}`));

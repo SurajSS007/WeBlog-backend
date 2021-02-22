@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = mongoose.model('User');
 const Blog = mongoose.model('Blog');
 
 
@@ -12,9 +13,16 @@ exports.addBlog = async(req,res) => {
         blog.description = description
         blog.text = text
         blog.likes = likes
-        blog.save((err, doc) => {
-            if (!err)
-                res.json(blog)
+        blog.user = req.user
+
+
+        blog.save(async(err, doc) => {
+            if (!err){
+                const user =  await User.findById(req.user);
+                const b1 =  await Blog.findOne({ title:title});
+                user.blogs.push(b1._id);
+                res.json({blog,user})
+            }
             else {
                     console.log(err);
             }

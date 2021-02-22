@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const JWT = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const Blog = mongoose.model('Blog');
 const User = mongoose.model('User');
 const {
     signAccessToken,
