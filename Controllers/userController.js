@@ -41,6 +41,17 @@ exports.getUser =  async (req, res) => {
     }
 }
 
+exports.getPosts =  async (req, res) => {
+    try {
+        const id = req.params.id
+        console.log(id);
+        const user = await User.findById(req.user).populate('blogs')
+        res.json(user);
+    } catch (err) {
+        console.log(error);
+    }
+}
+
 
 
 exports.Login = async (req, res) => {
