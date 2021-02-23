@@ -10,10 +10,10 @@ const {
     verifyRefreshToken
 } = require('../Middlewares/jwt_helper');
 
-exports.addUser =  async(req,res) =>{
+exports.addUser = async (req, res) => {
     try {
-        const { uname,email,password,contactno} = req.body ;
-    
+        const { uname, email, password, contactno } = req.body;
+
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(password, salt)
 
@@ -23,20 +23,20 @@ exports.addUser =  async(req,res) =>{
         user.password = hashPassword
         user.contactno = contactno
         user.save((err, doc) => {
-            if (!err){
+            if (!err) {
                 res.json(user)
             }
             else {
-                    console.log(err);
+                console.log(err);
             }
         });
     } catch (error) {
         console.log(error);
-    } 
+    }
 }
 
 
-exports.getUser =  async (req, res) => {
+exports.getUser = async (req, res) => {
     try {
         const user = await User.find();
         res.json(user);
@@ -45,12 +45,10 @@ exports.getUser =  async (req, res) => {
     }
 }
 
-exports.getPosts =  async (req, res) => {
+exports.getPosts = async (req, res) => {
     try {
         // const id = req.params.id
-        console.log(req.user);
         const user = await User.findById(req.user).populate('blogs')
-        console.log(user);
         res.json(user);
     } catch (err) {
         console.log(error);
@@ -67,17 +65,16 @@ exports.Login = async (req, res) => {
         const user = await User.findOne({
             uname: un
         })
-        console.log(user);
-  
+
         if (user == null) {
             return res.status(400).send('cannot find user')
         }
-        const checkpassword = await bcrypt.compare(password,user.password);
+        const checkpassword = await bcrypt.compare(password, user.password);
 
- 
-        if (checkpassword) {    
+
+        if (checkpassword) {
             const accessToken = await signAccessToken(user.id)
-        
+
             res.json({ auth: true, token: accessToken, result: user })
 
         } else {

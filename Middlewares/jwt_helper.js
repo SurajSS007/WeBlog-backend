@@ -15,7 +15,6 @@ module.exports = {
     },
     //for verify a Access Token
     verifyAccessToken: (req, res, next) => {
-        // const token = req.headers["authorization"]
         try {
             if (!req.headers['authorization']) return res.send("token not found")
             const authHeader = req.headers['authorization']
