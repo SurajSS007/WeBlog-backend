@@ -1,15 +1,25 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Blog = mongoose.model('Blog');
-
+const cloudinary = require('cloudinary');
+require('../Middlewares/cloudinary')
 
 exports.addBlog = async(req,res) => {
     try {
+
         const { title,image,description,text,likes} = req.body ;
+        const fileStr = req.body.image;
+        // console.log(fileStr);
+        const uploadResponse = await cloudinary.v2.uploader.upload(fileStr, {
+            upload_preset: 'ml_default',
+        });
+        console.log(uploadResponse);
+
+     
     
         const blog = new Blog();
         blog.title = title
-        blog.image = image
+        blog.image = uploadResponse.secure_url
         blog.description = description
         blog.text = text
         blog.likes = likes
@@ -18,6 +28,7 @@ exports.addBlog = async(req,res) => {
         res.json(blog)
         blog.save(async(err, doc) => {
             if (!err){
+                console.log(blog);
                 const user =  await User.findById(req.user);
                 const b1 =  await Blog.findOne({ title:title});
                 user.blogs.push(b1._id);

@@ -8,7 +8,8 @@ router.route('/')
 .get(userController.getUser)
 
 router.route('/getPosts')
-.get(verifyAccessToken,userController.getPosts)
+.get(userController.getPosts)
+// .get(verifyAccessToken,userController.getPosts)
 
 router.route('/login')
 .post(userController.Login)
