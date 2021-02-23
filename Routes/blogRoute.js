@@ -7,4 +7,8 @@ router.route('/')
 .get(blogController.getBlog)    
 .post(verifyAccessToken,blogController.addBlog)
 
+
+router.route('/:id')
+.get(blogController.getBlogByID)    
+
 module.exports = router;

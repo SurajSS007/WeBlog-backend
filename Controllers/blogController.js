@@ -40,4 +40,17 @@ exports.getBlog =  async (req, res) => {
     } catch (err) {
         console.log(error);
     }
+
+}
+
+
+exports.getBlogByID =  async (req, res) => {
+    try {
+        const id = req.params.id
+        const blog = await Blog.findById(id);
+        res.json(blog);
+    } catch (err) {
+        console.log(error);
+    }
+
 }
