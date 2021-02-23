@@ -48,7 +48,7 @@ exports.getUser =  async (req, res) => {
 exports.getPosts =  async (req, res) => {
     try {
         // const id = req.params.id
-        // console.log(id);
+        console.log(req.user);
         const user = await User.findById(req.user).populate('blogs')
         console.log(user);
         res.json(user);
